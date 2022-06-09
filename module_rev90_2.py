@@ -35,7 +35,7 @@ class config:
     fmakemap = 1
 
     #毎回やるもの
-    fPreprocess = 0
+    fPreprocess = 1
     fTraining = 1
     fVisualize = 1
     fPrediction = 1
