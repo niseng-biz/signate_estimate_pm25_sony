@@ -1,14 +1,25 @@
+
 # signate_estimatepm25_sony
 ソニーグループ合同 データ分析コンペティション（for Recruiting） 大気中の汚染物質濃度の予測に挑戦しよう！で62thだったコードです。
 
 # 考え方
-
 １日前のpm2.5が時間とともにどこに行くかは地形情報や地上付近の風、上空の風、拡散係数やpm2.5自体の発生など、影響されるものが多すぎるので、基本的に同じ日のデータを使って領域方向の推論で予測をすることを考えました。
 
+# Directory
+　以下のような構成です。
+ 
+<pre>
+
+│  module_rev90_2.py
+├─data
+│      submit_sample.csv
+│      test.csv
+│      train.csv
+└─model
+</pre>
+
 # CityのDrop
-
 　目視で明らかにTestデータから遠そうなCityの情報は削っています。　
-
 　'Novosibirsk','Darwin', 'Perth','Ürümqi', 'Naha', 'Calama', 'Sapporo', 'Hegang', 'Bandar Abbas', 'Yazd'を削りました。
 
 # クラスタリング　
