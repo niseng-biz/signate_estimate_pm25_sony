@@ -1,56 +1,7 @@
-﻿#-------------------------------------------------------------------------------
-# Author:      naosh
+#-------------------------------------------------------------------------------
+# Author:      niseng
 # Created:     14/05/2022
-# Copyright:   (c) naosh 2022
-
-# memo : k-meanのおかげでtimestampで特徴量作っていもいいはず。timestamp, week x pm25あり、なし
-# k-meanの場所ごとにモデルを分けるか。。。dailyのpm25無しはみておきたい
-# あとはmonthのpm25,あり、なしかな, 前日、翌日のデータを足したい
-
-
-# rev40 : drop pm25, add month
-# rev39 : add pm25
-# rev38 : clustaring　調整
-# rev37 : 1timestamp k-fold
-# rev36 : optuna off, k-meansの個数をパラメータ化
-# rev35 : rev30のoptuna
-# rev34 : month, pm25なしでバリデーション - fold5_RMSE - 19.323666 - CV_RMSE - 19.334042
-# rev33 : やっぱりrev32がだめなので dailyの pm25なし 19.341623 - CV_RMSE - 19.347706
-# rev32 : ダメ元でk-means, daily features　　- fold5_RMSE - 16.030611 - CV_RMSE - 16.110836
-# rev31 : rev30にpm25追加 18.526898 - CV_RMSE - 18.557457
-# rev30 : rev29とほぼ同じでnumleves 70 - fold5_RMSE - 19.077462 CV_RMSE - 19.047485 (まちがって31の内容で上書き）
-# rev29 : k-clustering fold5_RMSE - 19.188421 - CV_RMSE - 19.193999
-# rev28 : optuna再トライ  - fold5_RMSE - 18.980791 CV_RMSE - 19.056353
-# rev27 : 領域平均をうまく使えていないことがわかったので、trainとtestを統合して平均を出す。
-#          その際に Darwin Perth Novosibirsk Urumqi Saint Petersburgは除去
-#            - fold5_RMSE - 19.098184 - CV_RMSE - 19.191385
-#
-# rev26 : regionの中央座標を追加　:　 fold5_RMSE - 18.933705 CV_RMSE - 19.170133
-# rev25 : optunaは時間がかかりすぎ。特徴量を変更。City排除 : fold5_RMSE - 19.111252 CV_RMSE - 19.089802
-# rev24 : weeknum, region, kfold, pm25なし: fold5_RMSE - 19.144445 CV_RMSE - 19.118628
-# rev23 : timestamp, region, kfold, pm25なし : fold5_RMSE - 19.479377 CV_RMSE - 19.429832
-# rev22 : year-month, region, kfold, pm25なし : fold5_RMSE - 19.192856 CV_RMSE - 19.159342
-# rev21 : timestamp, region, kfold, pm25なし  : fold5_RMSE - 19.515829 CV_RMSE - 19.468811 bug あり
-# rev20 : rev19と同じで kfold( weeknum, region, kfold, pm25なし) fold5_RMSE - 19.189919 CV_RMSE - 19.139421　bug あり
-# rev19 : weeknum, region, pm25なし   : fold5_RMSE - 23.291602 CV_RMSE - 22.250633
-# rev18 : timestamp, region, pm25なし　　　: fold5_RMSE - 23.453578 CV_RMSE - 22.396438 (rev18に上書きしてしまった）
-# rev17 : Country and weeknum              : fold5_RMSE - 22.131640 CV_RMSE - 21.363405
-# rev16 : rev15ベースで週単位の平均を求める : fold5_RMSE - 21.464628 CV_RMSE - 20.357345
-# rev15 : region ベースでpm25をyear-monthで特徴量map : fold5_RMSE - 22.570525 CV_RMSE - 21.342929
-# rev14 : countryベースでpm25をyear-monthで特徴量map : fold5_RMSE - 22.696154 CV_RMSE - 21.834239
-# rev13 : rev12ベースで特徴量をcountry -> region :  fold5_RMSE - 17.827254 CV_RMSE - 17.172927
-# rev12 : pm25入りでtimestampを用いて特徴map  : fold5_RMSE - 20.370327 CV_RMSE - 19.755167
-# rev11 : 一旦Countryにもどしてpm25追加 : fold5_RMSE - 22.940993 CV_RMSE - 21.911531
-# rev10 : countryからregionに変更 : fold5_RMSE - 23.404291  CV_RMSE - 22.329755
-# rev09 : 月平均特徴量いれてみる : fold5_RMSE - 23.089776  CV_RMSE - 22.070917
-# rev08 : GPU 対応
-# rev07 : optuna 対応
-# rev06 : rev05ベースに緯度経度で区分け。Novosibirskのデータ削除
-# rev05 : rev02ベースに可視化やcvの修正
-# rev04 : year削除, 22変数に。　
-# rev03 : yearの追加
-# rev02 : 相関0.8以上を排除(既に32全部の変数を使っている）
-# rev01 : 相関をとる。GroupKfoldで地点ごとのデータとする　相関0.7以上を排除
+# Lisence:     CC0
 #-------------------------------------------------------------------------------
 
 import folium
